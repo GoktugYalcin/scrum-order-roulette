@@ -1,0 +1,46 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.n4b__scrumroulette {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.n4b__scrumroulette-spin {
+  padding: 20px 60px;
+  font-size: 30px;
+  border-radius: 40px;
+  transition: transform 25ms ease-out;
+}
+
+.n4b__scrumroulette-spin:active {
+  transform: translateY(3px);
+  transition: transform 25ms ease-out;
+}
+
+.n4b__scrumroulette-actions {
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
