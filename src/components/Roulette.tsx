@@ -2,8 +2,9 @@ import React from 'react'
 import JSConfetti from "js-confetti";
 import Swal from "sweetalert2";
 import {Wheel} from "react-custom-roulette";
+import {IOption, IRoulette} from "../interfaces";
 
-const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}) => {
+const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}: IRoulette) => {
     const colors = [
         "#ff595e",
         "#ffca3a",
@@ -39,7 +40,14 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}) => {
     return <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
-        data={data}
+        data={data.map(i => {
+            const item: IOption = i
+            if(item.option.length > 14 ) {
+                item.option = item.option.substring(0, 11) + '...'
+            }
+
+            return item
+        })}
         spinDuration={0.23}
         innerBorderColor="#000000"
         radiusLineWidth={0}

@@ -1,7 +1,8 @@
 import React from 'react'
 import {Button} from "@mantine/core";
+import {IActions} from "../interfaces";
 
-const Actions = ({setPrizeNumber, setMustSpin, setOpened, data}) => {
+const Actions = ({setPrizeNumber, setMustSpin, setOpened, data}: IActions) => {
     const handleSpinClick = () => {
         const newPrizeNumber = Math.floor(Math.random() * data.length);
         setPrizeNumber(newPrizeNumber);

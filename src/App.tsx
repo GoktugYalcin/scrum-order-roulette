@@ -5,7 +5,7 @@ import Roulette from "./components/Roulette";
 import CreateModal from "./components/CreateModal";
 
 export default function App() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLTextAreaElement>(null);
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [opened, setOpened] = useState(false);
@@ -21,16 +21,16 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       if (opened && ref.current) {
-        ref.current.value = JSON.parse(localStorage.getItem("scrum-wheel")).map(i => i.option).join('\n')
+        ref.current.value = JSON.parse(localStorage.getItem("scrum-wheel") || "").map((i: { option: string; }) => i.option).join('\n')
       }
     }, 100);
   }, [opened]);
 
   return (
       <div className="App">
-          <CreateModal opened={opened} setData={setData} setOpened={setOpened} refText={ref} />
-          <Roulette setMustSpin={setMustSpin} data={data} mustSpin={mustSpin} prizeNumber={prizeNumber} setData={setData} />
-          <Actions setOpened={setOpened} data={data} setMustSpin={setMustSpin} setPrizeNumber={setPrizeNumber} />
+        <CreateModal opened={opened} setData={setData} setOpened={setOpened} refText={ref} />
+        <Roulette setMustSpin={setMustSpin} data={data} mustSpin={mustSpin} prizeNumber={prizeNumber} setData={setData} />
+        <Actions setOpened={setOpened} data={data} setMustSpin={setMustSpin} setPrizeNumber={setPrizeNumber} />
       </div>
   );
 }

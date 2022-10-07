@@ -1,9 +1,10 @@
 import React from 'react'
 import {Button, Modal, Space, Textarea} from "@mantine/core";
+import {ICreateModal} from "../interfaces";
 
-const CreateModal = ({opened, setOpened, refText, setData}) => {
+const CreateModal = ({opened, setOpened, refText, setData}: ICreateModal) => {
     const saveHandler = () => {
-        const values = refText.current.value
+        const values = refText?.current?.value
             .split("\n")
             .filter((i) => i.trim() !== "")
             .map((i) => ({ option: i }));
