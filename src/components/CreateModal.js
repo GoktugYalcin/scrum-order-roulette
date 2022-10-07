@@ -8,7 +8,7 @@ const CreateModal = ({opened, setOpened, refText, setData}) => {
             .filter((i) => i.trim() !== "")
             .map((i) => ({ option: i }));
         setData(values);
-        localStorage.setItem("n4b-scrum-wheel", JSON.stringify(values));
+        localStorage.setItem("scrum-wheel", JSON.stringify(values));
         setOpened(false);
     }
 

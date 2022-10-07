@@ -1,8 +1,4 @@
-import JSConfetti from "js-confetti";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Modal, Space, Textarea } from "@mantine/core";
-import { Wheel } from "react-custom-roulette";
-import Swal from "sweetalert2";
 import "./App.css";
 import Actions from "./components/Actions";
 import Roulette from "./components/Roulette";
@@ -16,7 +12,7 @@ export default function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const dataOld = localStorage.getItem("n4b-scrum-wheel");
+    const dataOld = localStorage.getItem("scrum-wheel");
     if (dataOld) {
       setData(JSON.parse(dataOld));
     }
@@ -25,10 +21,10 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       if (opened && ref.current) {
-        ref.current.value = data.map((i) => i.option).join("\n");
+        ref.current.value = JSON.parse(localStorage.getItem("scrum-wheel")).map(i => i.option).join('\n')
       }
     }, 100);
-  }, [opened, data]);
+  }, [opened]);
 
   return (
       <div className="App">
