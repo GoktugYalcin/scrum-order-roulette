@@ -39,7 +39,14 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}) => {
     return <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
-        data={data}
+        data={data.map(i => {
+            const item = i
+            if(item.option.length > 12) {
+                item.option = item.option.substring(0, 10) + '...'
+            }
+
+            return item
+        })}
         spinDuration={0.23}
         innerBorderColor="#000000"
         radiusLineWidth={0}
