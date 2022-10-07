@@ -21,19 +21,19 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}) => {
     const handleStopSpinning = () => {
         setMustSpin(false);
         const confetti = new JSConfetti();
-        confetti.addConfetti({
-            confettiRadius: 6,
-            confettiNumber: 500
-        });
+        if (data.length) {
+            Swal.fire({
+                icon: "info",
+                html: `<b>${data[prizeNumber].option}</b> can talk now!`
+            });
+            setData(data.filter((d, i) => i !== prizeNumber));
+        }
         setTimeout(() => {
-            if (data.length) {
-                Swal.fire({
-                    icon: "info",
-                    html: `Chosen one is <b>${data[prizeNumber].option}</b> for talk now!`
-                });
-                setData(data.filter((d, i) => i !== prizeNumber));
-            }
-        }, 400);
+            confetti.addConfetti({
+                confettiNumber: 180,
+                confettiColors: colors
+            });
+        }, 500);
     }
 
     return <Wheel
