@@ -42,8 +42,8 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}: IRoulette
         prizeNumber={prizeNumber}
         data={data.map(i => {
             const item: IOption = i
-            if(item.option.length > 14 ) {
-                item.option = item.option.substring(0, 11) + '...'
+            if(item.option.length > 12 ) {
+                item.option = item.option.substring(0, 10) + '...'
             }
 
             return item
