@@ -10,7 +10,6 @@ const History = ({history}) => {
             <div className="roulette__history-container">
                 {
                     history.length ? history.map((step, index) => {
-                        console.log(step)
                         return <div className="roulette__history-container_item" key={index}>
                             {`${index+1}. ${step.option}`}
                         </div>
