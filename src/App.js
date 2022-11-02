@@ -30,7 +30,7 @@ export default function App() {
       <div className="App">
           <CreateModal opened={opened} setData={setData} setOpened={setOpened} refText={ref} />
           <Roulette setMustSpin={setMustSpin} data={data} mustSpin={mustSpin} prizeNumber={prizeNumber} setData={setData} />
-          <Actions setOpened={setOpened} data={data} setMustSpin={setMustSpin} setPrizeNumber={setPrizeNumber} />
+          <Actions mustSpin={mustSpin} setData={setData} setOpened={setOpened} data={data} setMustSpin={setMustSpin} setPrizeNumber={setPrizeNumber} />
       </div>
   );
 }

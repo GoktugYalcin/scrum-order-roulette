@@ -40,11 +40,14 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}) => {
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
         data={data.map(i => {
-            const item = i
-            if(item.option.length > 12) {
-                item.option = item.option.substring(0, 10) + '...'
+            const item = {}
+            item.optionShortname = i.option
+            if(i.option.length > 12) {
+                item.option = i.option.substring(0, 10) + '...'
             }
-
+            else {
+                item.option = i.option
+            }
             return item
         })}
         spinDuration={0.23}
