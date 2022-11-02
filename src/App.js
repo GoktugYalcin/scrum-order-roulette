@@ -3,6 +3,7 @@ import "./App.css";
 import Actions from "./components/Actions";
 import Roulette from "./components/Roulette";
 import CreateModal from "./components/CreateModal";
+import History from "./components/History";
 
 export default function App() {
   const ref = useRef(null);
@@ -10,6 +11,7 @@ export default function App() {
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [opened, setOpened] = useState(false);
   const [data, setData] = useState([]);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     const dataOld = localStorage.getItem("scrum-wheel");
@@ -28,9 +30,14 @@ export default function App() {
 
   return (
       <div className="App">
-          <CreateModal opened={opened} setData={setData} setOpened={setOpened} refText={ref} />
-          <Roulette setMustSpin={setMustSpin} data={data} mustSpin={mustSpin} prizeNumber={prizeNumber} setData={setData} />
-          <Actions mustSpin={mustSpin} setData={setData} setOpened={setOpened} data={data} setMustSpin={setMustSpin} setPrizeNumber={setPrizeNumber} />
+          <div className="container__roulette">
+            <CreateModal setHistory={setHistory} opened={opened} setData={setData} setOpened={setOpened} refText={ref} />
+            <Roulette setMustSpin={setMustSpin} setHistory={setHistory} history={history} data={data} mustSpin={mustSpin} prizeNumber={prizeNumber} setData={setData} />
+            <Actions mustSpin={mustSpin} setHistory={setHistory} setData={setData} setOpened={setOpened} data={data} setMustSpin={setMustSpin} setPrizeNumber={setPrizeNumber} />
+          </div>
+          <div className="container__history">
+            <History history={history}/>
+          </div>
       </div>
   );
 }

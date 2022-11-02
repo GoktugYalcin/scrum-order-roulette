@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button} from "@mantine/core";
 
-const Actions = ({mustSpin, setData, setPrizeNumber, setMustSpin, setOpened, data}) => {
+const Actions = ({mustSpin, setData, setHistory, setPrizeNumber, setMustSpin, setOpened, data}) => {
     const handleSpinClick = () => {
         const newPrizeNumber = Math.floor(Math.random() * data.length);
         setPrizeNumber(newPrizeNumber);
@@ -15,6 +15,7 @@ const Actions = ({mustSpin, setData, setPrizeNumber, setMustSpin, setOpened, dat
     const handleRewind = () => {
         if(localStorage.getItem("scrum-wheel"))
         setData(JSON.parse(localStorage.getItem("scrum-wheel")))
+        setHistory([])
     };
 
     return <div className="n4b__scrumroulette-actions">

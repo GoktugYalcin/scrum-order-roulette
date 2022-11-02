@@ -3,7 +3,7 @@ import JSConfetti from "js-confetti";
 import Swal from "sweetalert2";
 import {Wheel} from "react-custom-roulette";
 
-const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}) => {
+const Roulette = ({mustSpin, setHistory, history, setMustSpin, prizeNumber, data, setData}) => {
     const colors = [
         "#ff595e",
         "#ffca3a",
@@ -18,6 +18,13 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}) => {
         "#7B287D"
     ]
 
+    const handleAddHistory = (prizeNumber) => {
+        const mainData = JSON.parse(localStorage.getItem("scrum-wheel"))
+        if(mainData && mainData[prizeNumber]) {
+            setHistory([...history, mainData[prizeNumber]])
+        }
+    }
+
     const handleStopSpinning = () => {
         setMustSpin(false);
         const confetti = new JSConfetti();
@@ -26,6 +33,7 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}) => {
                 icon: "info",
                 html: `<b>${data[prizeNumber].option}</b> can talk now!`
             });
+            handleAddHistory(prizeNumber)
             setData(data.filter((d, i) => i !== prizeNumber));
         }
         setTimeout(() => {

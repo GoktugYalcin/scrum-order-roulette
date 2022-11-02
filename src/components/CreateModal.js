@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Modal, Space, Textarea} from "@mantine/core";
 
-const CreateModal = ({opened, setOpened, refText, setData}) => {
+const CreateModal = ({opened, setOpened, refText, setData, setHistory}) => {
     const saveHandler = () => {
         const values = refText.current.value
             .split("\n")
@@ -10,6 +10,7 @@ const CreateModal = ({opened, setOpened, refText, setData}) => {
         setData(values);
         localStorage.setItem("scrum-wheel", JSON.stringify(values));
         setOpened(false);
+        setHistory([]);
     }
 
     return <Modal
