@@ -21,7 +21,7 @@ const Roulette = ({mustSpin, setHistory, history, setMustSpin, prizeNumber, data
     const handleAddHistory = (prizeNumber) => {
         const mainData = JSON.parse(localStorage.getItem("scrum-wheel"))
         if(mainData && mainData[prizeNumber]) {
-            setHistory([...history, mainData[prizeNumber]])
+            setHistory([...history, data[prizeNumber]])
         }
     }
 
