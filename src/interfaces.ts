@@ -22,10 +22,3 @@ export interface IActions {
 export interface IRef {
     current: HTMLTextAreaElement
 }
-
-export interface ICreateModal {
-    opened: boolean,
-    setOpened: Function,
-    refText: RefObject<HTMLTextAreaElement> | null,
-    setData: Function
-}

@@ -1,21 +1,24 @@
-import React from 'react'
+import React, {RefObject} from 'react'
 import {Button, Modal, Space, Textarea} from "@mantine/core";
-import {ICreateModal} from "../interfaces";
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import {switchModalOpened} from "../redux/slices/controlSlice";
+import {createRoulette} from "../redux/slices/rouletteSlice";
 
-const CreateModal = ({opened, setOpened, refText, setData}: ICreateModal) => {
+export interface modalArgs {
+    refText: RefObject<HTMLTextAreaElement> | null
+}
+
+const CreateModal = ({refText}: modalArgs) => {
+    const dispatch = useAppDispatch()
+    const opened = useAppSelector(store => store.control.modalOpened)
     const saveHandler = () => {
-        const values = refText?.current?.value
-            .split("\n")
-            .filter((i) => i.trim() !== "")
-            .map((i) => ({ option: i }));
-        setData(values);
-        localStorage.setItem("scrum-wheel", JSON.stringify(values));
-        setOpened(false);
+        dispatch(createRoulette(refText?.current?.value))
+        dispatch(switchModalOpened())
     }
 
     return <Modal
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={() => dispatch(switchModalOpened())}
         title="Create new Scrum list!"
         centered
     >

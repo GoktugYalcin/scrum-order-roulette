@@ -2,9 +2,18 @@ import React from 'react'
 import JSConfetti from "js-confetti";
 import Swal from "sweetalert2";
 import {Wheel} from "react-custom-roulette";
-import {IOption, IRoulette} from "../interfaces";
+import {IOption} from "../interfaces";
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import {setPrizeNumber} from "../redux/slices/rouletteSlice";
+import {switchMustSpin} from "../redux/slices/controlSlice";
 
-const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}: IRoulette) => {
+const Roulette = () => {
+    const dispatch = useAppDispatch()
+
+    const mustSpin = useAppSelector((store) => store.control.mustSpin)
+    const data = useAppSelector((store) => store.roulette.value)
+    const prizeNumber = useAppSelector((store) => store.roulette.prizeNumber)
+
     const colors = [
         "#ff595e",
         "#ffca3a",
@@ -20,16 +29,18 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}: IRoulette
     ]
 
     const handleStopSpinning = () => {
-        setMustSpin(false);
-        const confetti = new JSConfetti();
+        dispatch(switchMustSpin())
+
         if (data.length) {
+            dispatch(setPrizeNumber(prizeNumber))
             Swal.fire({
                 icon: "info",
                 html: `<b>${data[prizeNumber].option}</b> can talk now!`
             });
-            setData(data.filter((d, i) => i !== prizeNumber));
         }
+
         setTimeout(() => {
+            const confetti = new JSConfetti();
             confetti.addConfetti({
                 confettiNumber: 180,
                 confettiColors: colors
@@ -40,7 +51,7 @@ const Roulette = ({mustSpin, setMustSpin, prizeNumber, data, setData}: IRoulette
     return <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
-        data={data.map(i => {
+        data={data.map((i: IOption) => {
             const item: IOption = i
             if(item.option.length > 12 ) {
                 item.option = item.option.substring(0, 10) + '...'

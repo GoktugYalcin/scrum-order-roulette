@@ -1,22 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./App.css";
 import Actions from "./components/Actions";
 import Roulette from "./components/Roulette";
 import CreateModal from "./components/CreateModal";
+import {useAppSelector} from "./redux/hooks";
 
 export default function App() {
   const ref = useRef<HTMLTextAreaElement>(null);
-  const [mustSpin, setMustSpin] = useState(false);
-  const [prizeNumber, setPrizeNumber] = useState(0);
-  const [opened, setOpened] = useState(false);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const dataOld = localStorage.getItem("scrum-wheel");
-    if (dataOld) {
-      setData(JSON.parse(dataOld));
-    }
-  }, []);
+  const opened = useAppSelector(store => store.control.modalOpened)
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,9 +19,9 @@ export default function App() {
 
   return (
       <div className="App">
-        <CreateModal opened={opened} setData={setData} setOpened={setOpened} refText={ref} />
-        <Roulette setMustSpin={setMustSpin} data={data} mustSpin={mustSpin} prizeNumber={prizeNumber} setData={setData} />
-        <Actions setOpened={setOpened} data={data} setMustSpin={setMustSpin} setPrizeNumber={setPrizeNumber} />
+        <CreateModal refText={ref} />
+        <Roulette />
+        <Actions />
       </div>
   );
 }

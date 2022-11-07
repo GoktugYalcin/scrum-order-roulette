@@ -1,16 +1,21 @@
 import React from 'react'
 import {Button} from "@mantine/core";
-import {IActions} from "../interfaces";
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import {switchModalOpened, switchMustSpin} from "../redux/slices/controlSlice";
+import {setPrizeNumber} from "../redux/slices/rouletteSlice";
 
-const Actions = ({setPrizeNumber, setMustSpin, setOpened, data}: IActions) => {
+const Actions = () => {
+    const dispatch = useAppDispatch()
+    const data = useAppSelector((store) => store.roulette.value)
+
     const handleSpinClick = () => {
         const newPrizeNumber = Math.floor(Math.random() * data.length);
-        setPrizeNumber(newPrizeNumber);
-        setMustSpin(true);
+        dispatch(setPrizeNumber(newPrizeNumber))
+        dispatch(switchMustSpin())
     };
 
     const handleCreateClick = () => {
-        setOpened(true);
+        dispatch(switchModalOpened())
     };
     return <div className="n4b__scrumroulette-actions">
         <Button
