@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "./App.css";
 import Actions from "./components/Actions";
 import Roulette from "./components/Roulette";
+import History from "./components/History";
 import CreateModal from "./components/CreateModal";
 import {useAppSelector} from "./redux/hooks";
 
@@ -19,9 +20,14 @@ export default function App() {
 
   return (
       <div className="App">
-        <CreateModal refText={ref} />
-        <Roulette />
-        <Actions />
+          <div className="container__roulette">
+              <CreateModal refText={ref} />
+              <Roulette />
+              <Actions />
+          </div>
+          <div className="container__history">
+              <History />
+          </div>
       </div>
   );
 }
