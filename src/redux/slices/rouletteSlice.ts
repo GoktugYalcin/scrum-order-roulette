@@ -31,7 +31,15 @@ export const rouletteSlice = createSlice({
         },
         setRouletteOutCandidate: (state, action:PayloadAction<number>) => {
             state.value = state.value.filter((item: any, index: number) => index !== action.payload)
-        }
+        },
+        setHistoryValue: (state, action: PayloadAction<any>) => {
+            if(!action.payload) {
+                state.historyValue = []
+            }
+            else {
+                state.historyValue = action.payload
+            }
+        },
     },
 })
 
@@ -44,6 +52,7 @@ export const getRouletteHistory = (state: RootState) => state.roulette.historyVa
 export const {
     createRoulette,
     rewindRoulette,
+    setHistoryValue,
     setPrizeNumber,
     setRouletteOutCandidate
 } = rouletteSlice.actions

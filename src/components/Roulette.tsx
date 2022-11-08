@@ -4,13 +4,14 @@ import Swal from "sweetalert2";
 import {Wheel} from "react-custom-roulette";
 import {IOption} from "../interfaces";
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
-import {setPrizeNumber, setRouletteOutCandidate} from "../redux/slices/rouletteSlice";
+import {setHistoryValue, setPrizeNumber, setRouletteOutCandidate} from "../redux/slices/rouletteSlice";
 import {switchMustSpin} from "../redux/slices/controlSlice";
 
 const Roulette = () => {
     const dispatch = useAppDispatch()
 
     const mustSpin = useAppSelector((store) => store.control.mustSpin)
+    const history = useAppSelector((store) => store.roulette.historyValue)
     const data = useAppSelector((store) => store.roulette.value)
     const prizeNumber = useAppSelector((store) => store.roulette.prizeNumber)
 
@@ -28,6 +29,14 @@ const Roulette = () => {
         "#7B287D"
     ]
 
+    const handleAddHistory = (prizeNumber: number) : any => {
+        // @ts-ignore
+        const mainData = JSON.parse(localStorage.getItem("scrum-wheel"))
+        if(mainData[prizeNumber]) {
+            dispatch(setHistoryValue([...history, mainData[prizeNumber]]))
+        }
+    }
+
     const handleStopSpinning = () => {
         dispatch(switchMustSpin())
 
@@ -38,6 +47,7 @@ const Roulette = () => {
             });
             dispatch(setPrizeNumber(prizeNumber))
             dispatch(setRouletteOutCandidate(prizeNumber))
+            handleAddHistory(prizeNumber)
         }
 
         setTimeout(() => {
