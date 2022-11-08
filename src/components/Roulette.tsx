@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import {Wheel} from "react-custom-roulette";
 import {IOption} from "../interfaces";
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
-import {setPrizeNumber} from "../redux/slices/rouletteSlice";
+import {setPrizeNumber, setRouletteOutCandidate} from "../redux/slices/rouletteSlice";
 import {switchMustSpin} from "../redux/slices/controlSlice";
 
 const Roulette = () => {
@@ -32,11 +32,12 @@ const Roulette = () => {
         dispatch(switchMustSpin())
 
         if (data.length) {
-            dispatch(setPrizeNumber(prizeNumber))
             Swal.fire({
                 icon: "info",
                 html: `<b>${data[prizeNumber].option}</b> can talk now!`
             });
+            dispatch(setPrizeNumber(prizeNumber))
+            dispatch(setRouletteOutCandidate(prizeNumber))
         }
 
         setTimeout(() => {
