@@ -33,7 +33,7 @@ const Roulette = () => {
         // @ts-ignore
         const mainData = JSON.parse(localStorage.getItem("scrum-wheel"))
         if(mainData[prizeNumber]) {
-            dispatch(setHistoryValue([...history, mainData[prizeNumber]]))
+            dispatch(setHistoryValue([...history, data[prizeNumber]]))
         }
     }
 

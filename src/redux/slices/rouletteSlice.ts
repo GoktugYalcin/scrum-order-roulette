@@ -23,8 +23,9 @@ export const rouletteSlice = createSlice({
             localStorage.setItem("scrum-wheel", JSON.stringify(values));
         },
         rewindRoulette: (state) => {
-            const dataLocal = localStorage.getItem('scrum-wheel')
-            state.value = dataLocal
+            // @ts-ignore
+            state.value = JSON.parse(localStorage.getItem("scrum-wheel"))
+            state.historyValue = []
         },
         setPrizeNumber: (state, action:PayloadAction<number>) => {
             state.prizeNumber = action.payload
