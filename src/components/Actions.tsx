@@ -27,7 +27,7 @@ const Actions = () => {
             variant="gradient"
             gradient={{ from: "#ed6ea0", to: "#ec8c69", deg: 35 }}
             onClick={() => handleSpinClick()}
-            disabled={data.length < 2}
+            disabled={data.length < 2 || mustSpin}
             color="green"
             size="xl"
         >

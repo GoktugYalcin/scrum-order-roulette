@@ -4,13 +4,14 @@ import Actions from "./components/Actions";
 import Roulette from "./components/Roulette";
 import History from "./components/History";
 import CreateModal from "./components/CreateModal";
-import {useAppSelector} from "./redux/hooks";
+import {useAppSelector, useMediaQuery} from "./redux/hooks";
 
 export default function App() {
   const ref = useRef<HTMLTextAreaElement>(null);
   const opened = useAppSelector(store => store.control.modalOpened)
+  const media = useMediaQuery('(min-width: 768px)')
 
-  useEffect(() => {
+    useEffect(() => {
     setTimeout(() => {
       if (opened && ref.current) {
         ref.current.value = JSON.parse(localStorage.getItem("scrum-wheel") || "").map((i: { option: string; }) => i.option).join('\n')
@@ -25,9 +26,11 @@ export default function App() {
               <Roulette />
               <Actions />
           </div>
-          <div className="container__history">
-              <History />
-          </div>
+          {media &&
+              <div className="container__history">
+                <History />
+              </div>
+          }
       </div>
   );
 }
