@@ -8,4 +8,4 @@ It made for my teams morning routine. It is deployed to web soon.
 - Or you can create a container with `docker compose up --build`
 
 ### Demo
-__For live demo, you can go [there](https://scrum-order-roulette.vercel.app)!__
+__For live demo, you can go [there](https://roulette.gokyalc.in/)!__
