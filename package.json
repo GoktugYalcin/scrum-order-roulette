@@ -11,9 +11,9 @@
     "@testing-library/user-event": "^13.5.0",
     "js-confetti": "^0.10.2",
     "react": "^18.2.0",
-    "react-custom-roulette": "^1.2.0",
+    "react-custom-roulette": "1.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "4.0.3",
     "sweetalert2": "^11.4.37",
     "web-vitals": "^2.1.4"
   },
