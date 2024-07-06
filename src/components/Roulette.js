@@ -2,8 +2,10 @@ import React from 'react'
 import JSConfetti from "js-confetti";
 import Swal from "sweetalert2";
 import {Wheel} from "react-custom-roulette";
+import {useRouletteStore} from '../bears/RouletteBear'
+import {useHistoryStore} from "../bears/HistoryBear";
 
-const Roulette = ({mustSpin, setHistory, history, setMustSpin, prizeNumber, data, setData}) => {
+const Roulette = () => {
     const colors = [
         "#ff595e",
         "#ffca3a",
@@ -18,23 +20,31 @@ const Roulette = ({mustSpin, setHistory, history, setMustSpin, prizeNumber, data
         "#7B287D"
     ]
 
+    const rouletteList = useHistoryStore(state => state.rouletteList)
+    const history = useHistoryStore(state => state.history)
+    const setHistory = useHistoryStore(state => state.setHistory)
+    const setRouletteList = useHistoryStore(state => state.setRouletteList)
+    const isSpinning = useRouletteStore(state => state.isSpinning)
+    const setIsSpinning = useRouletteStore(state => state.setIsSpinning)
+    const prizeNumber = useRouletteStore(state => state.prizeNumber)
+
     const handleAddHistory = (prizeNumber) => {
         const mainData = JSON.parse(localStorage.getItem("scrum-wheel"))
         if(mainData && mainData[prizeNumber]) {
-            setHistory([...history, data[prizeNumber]])
+            setHistory([...history, rouletteList[prizeNumber]])
         }
     }
 
     const handleStopSpinning = () => {
-        setMustSpin(false);
+        setIsSpinning(false);
         const confetti = new JSConfetti();
-        if (data.length) {
+        if (rouletteList.length) {
             Swal.fire({
                 icon: "info",
-                html: `<b>${data[prizeNumber].option}</b> can talk now!`
+                html: `<b>${rouletteList[prizeNumber].option}</b> can talk now!`
             });
             handleAddHistory(prizeNumber)
-            setData(data.filter((d, i) => i !== prizeNumber));
+            setRouletteList(rouletteList.filter((d, i) => i !== prizeNumber));
         }
         setTimeout(() => {
             confetti.addConfetti({
@@ -45,18 +55,13 @@ const Roulette = ({mustSpin, setHistory, history, setMustSpin, prizeNumber, data
     }
 
     return <Wheel
-        mustStartSpinning={mustSpin}
+        mustStartSpinning={isSpinning}
         prizeNumber={prizeNumber}
-        data={data.map(i => {
-            const item = {}
-            item.optionShortname = i.option
-            if(i.option.length > 12) {
-                item.option = i.option.substring(0, 10) + '...'
+        data={rouletteList.map(i => {
+            const opt = i.option
+            return {
+                option: opt.length > 12 ? opt.substring(0, 10) + '...' : opt
             }
-            else {
-                item.option = i.option
-            }
-            return item
         })}
         spinDuration={0.23}
         innerBorderColor="#000000"

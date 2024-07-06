@@ -1,7 +1,9 @@
 import React from 'react'
 import EmptyState from '../emptyHistory.svg'
+import {useHistoryStore} from "../bears/HistoryBear";
 
-const History = ({history}) => {
+const History = () => {
+    const history = useHistoryStore(state => state.history)
     return <>
         <div className="roulette__history">
             <div className="roulette__history-header">
